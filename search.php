@@ -63,11 +63,29 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
         color: #808080;
         font-size: 0.9rem;
     }
+
+    .main-results-section .result-container {
+        margin-left: 150px;
+        margin-bottom: 26px;
+    }
+
+    .siteResults {
+        margin-top: 26px;
+    }
+
+    .result-container .url {
+        color: #006621;
+        font-size: 17px;
+    }
+
+    .result-container .description {
+        font-size: 16px;
+    }
     </style>
 </head>
 
 <body>
-    <div class="header" style="min-height:10vh;width:100vw;">
+    <div class="header" style="min-height:10vh;max-width:100vw;">
         <div class="d-flex flex-row align-items-center">
             <div class="text-center" style="width:150px;">
                 <img src="vendor/images/logo.png" class="img-fluid" alt="google">
@@ -75,7 +93,7 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
             <form class="col-7" method="GET" action="search.php">
 
                 <div class="d-flex flex-row justify-content-center align-items-center">
-                    <input type="text" class="form-control shadow" name="term">
+                    <input type="text" class="form-control shadow" name="term" value="<?php echo $term; ?>">
                     <button type="submit" class="btn search btn-primary shadow" name="search">
                         <i class="fa fa-search"></i>
                     </button>
@@ -101,6 +119,10 @@ $numResults = $resultsProvider->getNumResults($term);
         <div class="numResults">
             <?php echo $numResults; ?> results found
         </div>
+
+        <?php echo $resultsProvider->getSiteResults(1, 20, $term); ?>
+
+
     </div>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
