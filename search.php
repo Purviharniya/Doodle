@@ -1,5 +1,6 @@
 <?php
-
+include "config.php";
+include "classes/SiteResultsProvider.php";
 $term = isset($_GET['term']) ? $_GET['term'] : exit("You must enter a term");
 
 $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
@@ -56,11 +57,17 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
         color: #1A73E8 !important;
         font-weight: bold;
     }
+
+    .numResults {
+        margin-left: 150px;
+        color: #808080;
+        font-size: 0.9rem;
+    }
     </style>
 </head>
 
 <body>
-    <div class="header" style="min-height:20vh;width:100vw;">
+    <div class="header" style="min-height:10vh;width:100vw;">
         <div class="d-flex flex-row align-items-center">
             <div class="text-center" style="width:150px;">
                 <img src="vendor/images/logo.png" class="img-fluid" alt="google">
@@ -84,6 +91,15 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
                     <a href='<?php echo "search.php?term=$term&type=images"; ?>'>Images</a>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="main-results-section pt-4">
+        <?php
+$resultsProvider = new SiteResultsProvider($con);
+$numResults = $resultsProvider->getNumResults($term);
+?>
+        <div class="numResults">
+            <?php echo $numResults; ?> results found
         </div>
     </div>
     <script src="vendor/jquery/jquery.min.js"></script>

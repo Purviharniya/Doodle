@@ -31,7 +31,7 @@
             </div>
             <div class="d-flex flex-row justify-content-center align-items-center">
                 <input type="text" class="form-control shadow" name="term">
-                <button type="submit" class="btn search btn-primary shadow" name="search">
+                <button type="submit" class="btn search btn-primary shadow">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
