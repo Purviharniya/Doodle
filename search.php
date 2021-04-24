@@ -4,6 +4,7 @@ include "classes/SiteResultsProvider.php";
 $term = isset($_GET['term']) ? $_GET['term'] : exit("You must enter a term");
 
 $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
 
 ?>
 <!DOCTYPE html>
@@ -81,6 +82,10 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
     .result-container .description {
         font-size: 16px;
     }
+
+    .page-no-container img {
+        height: 37px;
+    }
     </style>
 </head>
 
@@ -94,7 +99,7 @@ $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
 
                 <div class="d-flex flex-row justify-content-center align-items-center">
                     <input type="text" class="form-control shadow" name="term" value="<?php echo $term; ?>">
-                    <button type="submit" class="btn search btn-primary shadow" name="search">
+                    <button type="submit" class="btn search btn-primary shadow">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
@@ -120,9 +125,63 @@ $numResults = $resultsProvider->getNumResults($term);
             <?php echo $numResults; ?> results found
         </div>
 
-        <?php echo $resultsProvider->getSiteResults(1, 20, $term); ?>
+        <?php
+$pagesize = 20;
+echo $resultsProvider->getSiteResults($page, $pagesize, $term);
+?>
 
+    </div>
 
+    <div class="pagination-container d-flex flex-row justify-content-center mb-5">
+        <div class="page-btns d-flex">
+            <div class="page-no-container">
+                <img src="vendor/images/pageStart.png">
+            </div>
+            <?php
+
+$pagestoshow = 10; //10 pages to show in the pagination
+$numofpages = ceil($numResults / $pagesize); // how many pages are getting formed out of the results found //page size is 20 as defined above
+// $currentpage = 1;
+$pagesleft = min($pagestoshow, $numofpages); //to maintain the page length-> even if we reach to the last page which can be 2 for some search results
+$currentpage = $page - floor($pagestoshow / 2); //keep the 10 page length maintained, like if we're on the 5th page, it should show 4 pages before it and 5 pages after it
+if ($currentpage < 1) {
+    $currentpage = 1;
+}
+// to keep 10 page length maintained if we reach the end of the system, like:
+//if we're on 78, and there are 80 pages, then the pagination should show 71-80 instead of 73-80
+//this happens because pages after 80 cant be calculated
+if ($currentpage + $pagesleft > $numofpages + 1) {
+    $currentpage = $numofpages + 1 - $pagesleft;
+}
+
+while ($pagesleft != 0 && $currentpage <= $numofpages) {
+
+    if ($currentpage == $page) {
+        echo "<div class='page-no-container d-flex flex-column align-items-center'>
+                <img src='vendor/images/pageSelected.png'>
+                <span class='pageno text-dark'> $currentpage </span>
+            </div>";
+    } else {
+        echo "<div class='page-no-container '>
+                <a href='search.php?term=$term&type=$type&page=$currentpage' class='d-flex flex-column align-items-center'>
+                    <img src='vendor/images/page.png'>
+                    <span class='pageno'> $currentpage </span>
+                </a>
+            </div>";
+    }
+
+    $currentpage++;
+    $pagesleft--;
+}
+?>
+
+            <div class="page-no-container">
+                <img src="">
+            </div>
+            <div class="page-no-container">
+                <img src="vendor/images/pageEnd.png">
+            </div>
+        </div>
     </div>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>

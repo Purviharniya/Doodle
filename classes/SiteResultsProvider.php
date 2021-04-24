@@ -24,11 +24,15 @@ class SiteResultsProvider
 
     public function getSiteResults($page, $pagesize, $term)
     {
+        $fromLimit = ($page - 1) * $pagesize;
+
         $query = $this->con->prepare("SELECT * from sites where
                                       title LIKE :term or url like :term or keywords LIKE :term
-                                      or description like :term order by clicks desc");
+                                      or description like :term order by clicks desc LIMIT :fromlimit,:pagesize");
         $searchTerm = "%" . $term . "%";
         $query->bindParam(":term", $searchTerm);
+        $query->bindParam(":fromlimit", $fromLimit, PDO::PARAM_INT);
+        $query->bindParam(":pagesize", $pagesize, PDO::PARAM_INT);
         $query->execute();
 
         $resultsHTML = "<div class='siteResults d-flex flex-column'>";
