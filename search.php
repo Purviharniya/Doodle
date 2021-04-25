@@ -1,10 +1,13 @@
 <?php
 include "config.php";
-include "classes/SiteResultsProvider.php";
 $term = isset($_GET['term']) ? $_GET['term'] : exit("You must enter a term");
 
 $type = isset($_GET['type']) ? $_GET['type'] : 'sites';
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+// include "crawl.php";
+
+include "classes/SiteResultsProvider.php";
 
 ?>
 <!DOCTYPE html>
@@ -98,6 +101,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
             <form class="col-7" method="GET" action="search.php">
 
                 <div class="d-flex flex-row justify-content-center align-items-center">
+                    <input type="hidden" name="type" value="<?php echo $type; ?>">
                     <input type="text" class="form-control shadow" name="term" value="<?php echo $term; ?>">
                     <button type="submit" class="btn search btn-primary shadow">
                         <i class="fa fa-search"></i>
@@ -186,7 +190,7 @@ while ($pagesleft != 0 && $currentpage <= $numofpages) {
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <script type="text/javascript" src="vendor/js/script.js"></script>
 </body>
 
 </html>

@@ -122,13 +122,13 @@ function getDetails($url)
 
     //check if the link has already been crawled and inserted into the db, and ignore the link.
     if (existsLink($url)) {
-        echo "$url already exists<br>";
+        // echo "$url already exists<br>";
     }
     //else we insert the link into the db
     else if (insertLink($url, $title, $description, $keywords)) {
-        echo "SUCCESS: $url<br>";
+        // echo "SUCCESS: $url<br>";
     } else {
-        echo "ERROR: failed to insert $url";
+        // echo "ERROR: failed to insert $url";
     }
 
     // echo "URL: $url, TITLE: $title, DESCR: $description , KEY: $keywords<br>";
@@ -194,5 +194,6 @@ function followLinks($url)
     }
 }
 
-$startURL = "http://www.apple.com"; //the site to be crawled.
+// $startURL = "http://www.apple.com"; //the site to be crawled.
+$startURL = "https://www.google.com/search?q=$term&oq=$term";
 followLinks($startURL); //the entry point

@@ -44,12 +44,12 @@ class SiteResultsProvider
             $url = $row["url"];
 
             $title = $this->trimResults($title, 40);
-            $description = $this->trimResults($description, 180);
+            $description = $this->trimResults($description, 100);
 
             $resultsHTML .= "<div class='result-container d-flex flex-column'>
 
                                 <h4 class='title'>
-                                    <a class='result' href='$url'>
+                                    <a class='result' href='$url' data-linkid='$id'>
                                         $title
                                     </a>
                                 </h4>
