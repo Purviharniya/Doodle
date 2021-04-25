@@ -14,6 +14,14 @@ $(document).ready(function () {
     increaseClicks(linkid, url);
     return false;
   });
+
+  var grid = $(".imageResults");
+  grid.masonry({
+    itemSelector: ".grid-item",
+    columnWidth: 200,
+    gutter: 5,
+    isInitLayout: false,
+  });
 });
 
 function increaseClicks(linkid, url) {

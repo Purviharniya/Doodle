@@ -8,6 +8,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 // include "crawl.php";
 
 include "classes/SiteResultsProvider.php";
+include "classes/ImageResultsProvider.php";
 
 ?>
 <!DOCTYPE html>
@@ -89,6 +90,34 @@ include "classes/SiteResultsProvider.php";
     .page-no-container img {
         height: 37px;
     }
+
+    .grid-item {
+        position: relative;
+    }
+
+    .grid-item img {
+        max-width: 200px;
+        min-width: 50px;
+    }
+
+    .grid-item .details {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        font-size: 0.8rem;
+        padding: 3px;
+        box-sizing: border-box;
+        white-space: nowrap;
+        color: #fff;
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.8);
+        visibility: hidden;
+    }
+
+    .grid-item:hover .details {
+        visibility: visible;
+    }
     </style>
 </head>
 
@@ -122,16 +151,30 @@ include "classes/SiteResultsProvider.php";
     </div>
     <div class="main-results-section pt-4">
         <?php
-$resultsProvider = new SiteResultsProvider($con);
-$numResults = $resultsProvider->getNumResults($term);
+
+if ($type == 'sites') {
+    $resultsProvider = new SiteResultsProvider($con);
+    $numResults = $resultsProvider->getNumResults($term);
+
+} else {
+
+    $resultsProvider = new ImageResultsProvider($con);
+    $numResults = $resultsProvider->getNumResults($term);
+}
 ?>
         <div class="numResults">
             <?php echo $numResults; ?> results found
         </div>
 
         <?php
-$pagesize = 20;
-echo $resultsProvider->getSiteResults($page, $pagesize, $term);
+if ($type == 'sites') {
+    $pagesize = 20;
+    echo $resultsProvider->getSiteResults($page, $pagesize, $term);
+} else {
+    $pagesize = 30;
+    echo $resultsProvider->getSiteResults($page, $pagesize, $term);
+}
+
 ?>
 
     </div>
@@ -189,6 +232,7 @@ while ($pagesleft != 0 && $currentpage <= $numofpages) {
     </div>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="vendor/js/script.js"></script>
 </body>
