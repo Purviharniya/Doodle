@@ -21,6 +21,7 @@ include "classes/ImageResultsProvider.php";
     <link rel="stylesheet" href="vendor/css/sb-admin-2.min.css">
     <link rel="stylesheet" href="vendor/css/fonts.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="vendor/jquery/jquery.min.js"></script>
 
     <title>Document</title>
     <style>
@@ -98,6 +99,7 @@ include "classes/ImageResultsProvider.php";
     .grid-item img {
         max-width: 200px;
         min-width: 50px;
+        visibility: hidden;
     }
 
     .grid-item .details {

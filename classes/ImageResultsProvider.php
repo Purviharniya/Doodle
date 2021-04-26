@@ -34,8 +34,9 @@ class ImageResultsProvider
         $query->execute();
 
         $resultsHTML = "<div class='imageResults m-3'>";
+        $count = 0;
         while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-
+            $count++;
             $id = $row["id"];
             $title = $row["title"];
             $alt = $row["alt"];
@@ -49,9 +50,13 @@ class ImageResultsProvider
             } else {
                 $displayText = $imageurl;
             }
-            $resultsHTML .= "<div class='grid-item d-flex flex-column'>
+            $resultsHTML .= "<div class='grid-item d-flex flex-column image$count'>
                                 <a href='$imageurl'>
-                                    <img src='$imageurl' alt='$alt'>
+                                <script>
+                                    $(document).ready(function(){
+                                        loadImage(\"$imageurl\", \"image$count\");
+                                    });
+                                </script>
                                     <span class='details'>$displayText</span>
                                 </a>
                             </div>
