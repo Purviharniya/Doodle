@@ -29,6 +29,29 @@ $(document).ready(function () {
     gutter: 5,
     isInitLayout: false,
   });
+
+  $("[data-fancybox]").fancybox({
+    caption: function (instance, item) {
+      var caption = $(this).data("caption") || "";
+      var siteurl = $(this).data("siteurl") || "";
+
+      if (item.type === "image") {
+        caption =
+          (caption.length ? caption + "<br />" : "") +
+          '<a href="' +
+          item.src +
+          '">View Image</a><br><a href="' +
+          siteurl +
+          '">Visit Page</a>';
+      }
+
+      return caption;
+    },
+
+    afterShow: function (instance, item) {
+      increaseImageClicks(item.src);
+    },
+  });
 });
 
 function loadImage(src, classname) {
@@ -66,6 +89,15 @@ function increaseClicks(linkid, url) {
       return;
     } else {
       window.location.href = url;
+    }
+  });
+}
+
+function increaseImageClicks(src) {
+  $.post("ajax/increaseImageCount.php", { src: src }).done(function (res) {
+    if (res != "") {
+      alert(res);
+      return;
     }
   });
 }

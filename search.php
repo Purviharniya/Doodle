@@ -22,6 +22,7 @@ include "classes/ImageResultsProvider.php";
     <link rel="stylesheet" href="vendor/css/fonts.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="vendor/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
     <title>Document</title>
     <style>
@@ -94,6 +95,7 @@ include "classes/ImageResultsProvider.php";
 
     .grid-item {
         position: relative;
+        margin-bottom: 5px;
     }
 
     .grid-item img {
@@ -119,6 +121,10 @@ include "classes/ImageResultsProvider.php";
 
     .grid-item:hover .details {
         visibility: visible;
+    }
+
+    .fancybox-caption__body {
+        text-align: left;
     }
     </style>
 </head>
@@ -232,7 +238,7 @@ while ($pagesleft != 0 && $currentpage <= $numofpages) {
             </div>
         </div>
     </div>
-    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>

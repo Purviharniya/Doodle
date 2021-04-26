@@ -51,7 +51,7 @@ class ImageResultsProvider
                 $displayText = $imageurl;
             }
             $resultsHTML .= "<div class='grid-item d-flex flex-column image$count'>
-                                <a href='$imageurl'>
+                                <a href='$imageurl' data-fancybox data-caption='$displayText' data-siteurl='$siteurl'>
                                 <script>
                                     $(document).ready(function(){
                                         loadImage(\"$imageurl\", \"image$count\");
